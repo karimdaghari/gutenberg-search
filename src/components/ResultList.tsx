@@ -1,5 +1,6 @@
 import {
   Badge,
+  Box,
   Flex,
   Group,
   Paper,
@@ -18,8 +19,15 @@ export function ResultList() {
     root: containerRef.current,
     threshold: 1
   });
-  const { books, booksToReadIds, loadMore, isLoading, query, setQuery } =
-    useSearchContext();
+  const {
+    books,
+    booksToReadIds,
+    loadMore,
+    isLoading,
+    query,
+    setQuery,
+    booksCount
+  } = useSearchContext();
 
   const shouldLoadMore = useMemo(
     () => (books.length && entry?.isIntersecting ? true : false),
@@ -82,11 +90,14 @@ export function ResultList() {
             ))}
           </Group>
         </Flex>
-      ) : books.length ? (
+      ) : books.length || isLoading ? (
         <>
-          <Title order={4} pb='sm'>
-            Results
-          </Title>
+          <Box pb='sm'>
+            <Title order={4}>Results</Title>
+            {isLoading ? (
+              <Text>There are {booksCount} books in total</Text>
+            ) : null}
+          </Box>
           <ScrollArea ref={containerRef} h={680}>
             {books.length ? Success : null}
             {isLoading ? Loading : null}

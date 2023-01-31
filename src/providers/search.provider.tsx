@@ -32,7 +32,8 @@ export function SearchProvider({ children }: IProvider) {
     hasNextPage,
     isFetchingNextPage,
     status,
-    fetchStatus
+    fetchStatus,
+    data
   } = useInfiniteQuery({
     queryKey: ['search', query],
     enabled: query !== '',
@@ -65,15 +66,17 @@ export function SearchProvider({ children }: IProvider) {
     [status, fetchStatus, isFetchingNextPage]
   );
 
+  async function handleLoadMore() {
+    if (!hasNextPage || isLoading) return;
+    return await fetchNextPage();
+  }
+
   const isLoadingOnSearch = useMemo(
     () => fetchStatus === 'fetching' && !isFetchingNextPage,
     [fetchStatus, isFetchingNextPage]
   );
 
-  async function handleLoadMore() {
-    if (!hasNextPage || isLoading) return;
-    return await fetchNextPage();
-  }
+  const booksCount = data?.pages[0].count || 0;
 
   return (
     <SearchContext.Provider
@@ -83,6 +86,7 @@ export function SearchProvider({ children }: IProvider) {
         isLoadingOnSearch,
         setQuery,
         books,
+        booksCount,
         booksToRead,
         booksToReadIds,
         setBookToRead: handleSetBooksToRead,
