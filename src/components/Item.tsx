@@ -22,6 +22,12 @@ type Props = ItemProps & {
 };
 
 export function Item({ cover, title, authors, actionButton, loading }: Props) {
+  // Format authors to be in the format: {firstName} {lastName} instead of {lastName}, {firstName}
+  // e.g. "John Doe" instead of "Doe, John"
+  const formattedAuthors = authors?.map((author) =>
+    author.split(',').reverse().join(' ').trim()
+  );
+
   return (
     <Card>
       <Flex gap='sm' align='center' justify='space-between'>
@@ -50,7 +56,7 @@ export function Item({ cover, title, authors, actionButton, loading }: Props) {
             {loading ? (
               <Skeleton radius='sm' w={100} h={15} mt={6} />
             ) : authors?.length ? (
-              <Text>By: {authors.join(', ')}</Text>
+              <Text>By: {formattedAuthors?.join(', ')}</Text>
             ) : null}
           </div>
         </Flex>
