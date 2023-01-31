@@ -1,4 +1,4 @@
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
 import { SearchContext } from '~/contexts/search.context';
@@ -27,7 +27,7 @@ export function SearchProvider({ children }: IProvider) {
     setBooksToRead(_booksToRead);
   }
 
-  const { fetchNextPage, hasNextPage } = useInfiniteQuery({
+  const { fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
     queryKey: ['search', query],
     enabled: query !== '',
     queryFn: async ({ pageParam = null }) => {
@@ -53,7 +53,7 @@ export function SearchProvider({ children }: IProvider) {
   });
 
   async function handleLoadMore() {
-    if (!hasNextPage) return;
+    if (!hasNextPage || isFetchingNextPage) return;
     return await fetchNextPage();
   }
 

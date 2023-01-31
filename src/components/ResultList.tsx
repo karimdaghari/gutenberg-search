@@ -1,11 +1,30 @@
-import { Button, Paper, ScrollArea } from '@mantine/core';
+import { Paper, ScrollArea } from '@mantine/core';
+import { useEffect, useMemo, useRef } from 'react';
 import { useSearchContext } from '~/contexts/search.context';
 import { ResultItem } from './ResultItem';
+import { useIntersection } from '@mantine/hooks';
 
 export function ResultList() {
+  const containerRef = useRef(null);
+  const { ref, entry } = useIntersection({
+    root: containerRef.current,
+    threshold: 1
+  });
   const { books, booksToReadIds, loadMore } = useSearchContext();
+
+  const shouldLoadMore = useMemo(
+    () => (books.length && entry?.isIntersecting ? true : false),
+    [entry, books]
+  );
+
+  useEffect(() => {
+    if (shouldLoadMore) {
+      loadMore();
+    }
+  }, [shouldLoadMore, loadMore]);
+
   return (
-    <Paper component={ScrollArea} h={750} shadow='sm' p='md'>
+    <Paper ref={containerRef} component={ScrollArea} h={750} shadow='sm' p='md'>
       {books.length ? (
         <>
           {books.map(({ authors, id, title, formats }) => {
@@ -22,7 +41,7 @@ export function ResultList() {
               />
             );
           })}
-          <Button onClick={loadMore}>Load more</Button>
+          <span ref={ref} />
         </>
       ) : null}
     </Paper>
