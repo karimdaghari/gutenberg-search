@@ -1,7 +1,6 @@
 import { createContext, useContext } from 'react';
 
 interface IContext {
-  query: string;
   setQuery: (query: string) => void;
 }
 
