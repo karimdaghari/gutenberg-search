@@ -24,34 +24,36 @@ type Props = ItemProps & {
 export function Item({ cover, title, authors, actionButton, loading }: Props) {
   return (
     <Card>
-      <Flex gap='sm' align='center'>
-        {loading ? (
-          <Skeleton radius='sm' w={80} h={100} />
-        ) : (
-          <Image
-            width={80}
-            height={100}
-            src={cover}
-            alt={`Cover for the book: ${title}`}
-            style={{
-              borderRadius: '0.5rem'
-            }}
-          />
-        )}
-        <div>
+      <Flex gap='sm' align='center' justify='space-between'>
+        <Flex align='center' gap='sm'>
           {loading ? (
-            <Skeleton radius='sm' w={180} h={15} />
+            <Skeleton radius='sm' w={80} h={100} />
           ) : (
-            <Title order={5} lineClamp={2}>
-              {title}
-            </Title>
+            <Image
+              width={60}
+              height={100}
+              src={cover}
+              alt={`Cover for the book: ${title}`}
+              style={{
+                objectFit: 'contain'
+              }}
+            />
           )}
-          {loading ? (
-            <Skeleton radius='sm' w={100} h={15} mt={6} />
-          ) : authors?.length ? (
-            <Text>By: {authors.join(', ')}</Text>
-          ) : null}
-        </div>
+          <div>
+            {loading ? (
+              <Skeleton radius='sm' w={180} h={15} />
+            ) : (
+              <Title order={5} lineClamp={2}>
+                {title}
+              </Title>
+            )}
+            {loading ? (
+              <Skeleton radius='sm' w={100} h={15} mt={6} />
+            ) : authors?.length ? (
+              <Text>By: {authors.join(', ')}</Text>
+            ) : null}
+          </div>
+        </Flex>
         {loading ? (
           <Skeleton radius='sm' w={100} h={40} />
         ) : (
