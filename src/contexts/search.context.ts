@@ -4,6 +4,10 @@ import { IApiResponse } from '~/interfaces/api';
 interface IContext {
   setQuery: (query: string) => void;
   books: IApiResponse['results'];
+  setBookToRead: (id: number) => void;
+  removeBookToRead: (id: number) => void;
+  booksToRead: IContext['books'];
+  booksToReadIds: number[];
 }
 
 export const SearchContext = createContext<null | IContext>(null);
