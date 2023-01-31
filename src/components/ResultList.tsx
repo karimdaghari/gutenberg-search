@@ -1,4 +1,12 @@
-import { Paper, ScrollArea, Title } from '@mantine/core';
+import {
+  Badge,
+  Flex,
+  Group,
+  Paper,
+  ScrollArea,
+  Text,
+  Title
+} from '@mantine/core';
 import { useEffect, useMemo, useRef } from 'react';
 import { useSearchContext } from '~/contexts/search.context';
 import { ResultItem } from './ResultItem';
@@ -10,7 +18,8 @@ export function ResultList() {
     root: containerRef.current,
     threshold: 1
   });
-  const { books, booksToReadIds, loadMore, isLoading } = useSearchContext();
+  const { books, booksToReadIds, loadMore, isLoading, query, setQuery } =
+    useSearchContext();
 
   const shouldLoadMore = useMemo(
     () => (books.length && entry?.isIntersecting ? true : false),
@@ -51,12 +60,44 @@ export function ResultList() {
     </>
   );
 
+  const suggestions = ['Mark Twain', 'Jane Austen', 'Charles Dickens'];
+
   return (
-    <Paper h={750} shadow='sm' p='md'>
-      <ScrollArea ref={containerRef} h={720}>
-        {books.length ? Success : null}
-        {isLoading ? Loading : null}
-      </ScrollArea>
+    <Paper h={750} shadow='sm' p='sm'>
+      {!query ? (
+        <Flex justify='center' align='center' direction='column' h='100%'>
+          <Title order={3}>Search the Gutenberg Library</Title>
+          <Text>Here are a few queries to get you started...</Text>
+          <Group pt='sm'>
+            {suggestions.map((s) => (
+              <Badge
+                component='button'
+                onClick={() => setQuery(s)}
+                key={s}
+                style={{
+                  cursor: 'pointer'
+                }}>
+                {s}
+              </Badge>
+            ))}
+          </Group>
+        </Flex>
+      ) : books.length ? (
+        <>
+          <Title order={4} pb='sm'>
+            Results
+          </Title>
+          <ScrollArea ref={containerRef} h={680}>
+            {books.length ? Success : null}
+            {isLoading ? Loading : null}
+          </ScrollArea>
+        </>
+      ) : (
+        <Flex justify='center' align='center' direction='column' h='100%'>
+          <Title order={3}>No results found</Title>
+          <Text>It seems that there are no books for: {query}</Text>
+        </Flex>
+      )}
     </Paper>
   );
 }
