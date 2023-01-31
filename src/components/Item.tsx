@@ -5,7 +5,7 @@ export interface ItemProps {
   id: number;
   title: string;
   cover: string;
-  authors: string[];
+  authors?: string[];
 }
 
 interface Props extends ItemProps {
@@ -33,7 +33,7 @@ export function Item({ cover, title, authors, actionButton }: Props) {
           <Title order={5} lineClamp={2}>
             {title}
           </Title>
-          <Text>By: {authors.join(', ')}</Text>
+          {authors?.length ? <Text>By: {authors.join(', ')}</Text> : null}
         </div>
         <Button disabled={actionButton.disabled} onClick={actionButton.onClick}>
           {actionButton.label}
