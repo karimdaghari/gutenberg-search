@@ -7,6 +7,7 @@ import { IProvider } from '~/interfaces/provider';
 
 export function SearchProvider({ children }: IProvider) {
   const [query, setQuery] = useState('');
+  const [books, setBooks] = useState<IApiResponse['results']>([]);
   const { data, error } = useQuery({
     queryKey: ['search', query],
     enabled: query !== '',
@@ -20,11 +21,12 @@ export function SearchProvider({ children }: IProvider) {
         }
       );
       return data;
-    }
+    },
+    onSuccess: ({ results }) => setBooks(results)
   });
 
   return (
-    <SearchContext.Provider value={{ setQuery }}>
+    <SearchContext.Provider value={{ setQuery, books }}>
       {children}
     </SearchContext.Provider>
   );

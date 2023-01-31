@@ -1,7 +1,9 @@
 import { createContext, useContext } from 'react';
+import { IApiResponse } from '~/interfaces/api';
 
 interface IContext {
   setQuery: (query: string) => void;
+  books: IApiResponse['results'];
 }
 
 export const SearchContext = createContext<null | IContext>(null);
