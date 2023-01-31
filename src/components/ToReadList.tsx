@@ -15,7 +15,7 @@ export function ToReadList() {
               My Library
             </Title>
           </Flex>
-          <ScrollArea h={720}>
+          <ScrollArea h='90%'>
             {booksToRead.map(({ id, formats, title }) => {
               const cover = formats['image/jpeg'];
               return (

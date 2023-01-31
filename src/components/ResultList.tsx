@@ -71,7 +71,7 @@ export function ResultList() {
   const suggestions = ['Mark Twain', 'Jane Austen', 'Charles Dickens'];
 
   return (
-    <Paper h={750} shadow='sm' p='sm'>
+    <Paper h='90vh' shadow='sm' p='sm'>
       {!query ? (
         <Flex justify='center' align='center' direction='column' h='100%'>
           <Title order={3}>Search the Gutenberg Library</Title>
@@ -98,7 +98,7 @@ export function ResultList() {
               <Text>There are {booksCount} books in total</Text>
             )}
           </Box>
-          <ScrollArea ref={containerRef} h={680}>
+          <ScrollArea ref={containerRef} h='90%'>
             {books.length ? Success : null}
             {isLoading ? Loading : null}
           </ScrollArea>
