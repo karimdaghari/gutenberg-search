@@ -3,7 +3,7 @@ import { useSearchContext } from '~/contexts/search.context';
 import { ResultItem } from './ResultItem';
 
 export function ResultList() {
-  const { books } = useSearchContext();
+  const { books, booksToReadIds } = useSearchContext();
   return (
     <Paper shadow='sm' p='md'>
       {books.map(({ authors, id, title, formats }) => {
@@ -16,6 +16,7 @@ export function ResultList() {
             title={title}
             authors={_authors}
             cover={cover}
+            isToBeRead={booksToReadIds.includes(id)}
           />
         );
       })}
