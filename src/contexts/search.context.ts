@@ -8,6 +8,7 @@ interface IContext {
   removeBookToRead: (id: number) => void;
   booksToRead: IContext['books'];
   booksToReadIds: number[];
+  loadMore: () => Promise<unknown>;
 }
 
 export const SearchContext = createContext<null | IContext>(null);

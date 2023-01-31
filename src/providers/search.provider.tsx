@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useState } from 'react';
 import { SearchContext } from '~/contexts/search.context';
@@ -27,10 +27,14 @@ export function SearchProvider({ children }: IProvider) {
     setBooksToRead(_booksToRead);
   }
 
-  useQuery({
+  const { fetchNextPage, hasNextPage } = useInfiniteQuery({
     queryKey: ['search', query],
     enabled: query !== '',
-    queryFn: async () => {
+    queryFn: async ({ pageParam = null }) => {
+      if (pageParam) {
+        const { data } = await axios.get<IApiResponse>(pageParam);
+        return data;
+      }
       const { data } = await axios.get<IApiResponse>(
         'https://gutendex.com/books',
         {
@@ -41,8 +45,17 @@ export function SearchProvider({ children }: IProvider) {
       );
       return data;
     },
-    onSuccess: ({ results }) => setBooks(results)
+    getNextPageParam: ({ next }) => next,
+    onSuccess: ({ pages }) => {
+      const results = pages.flatMap(({ results }) => results);
+      setBooks(results);
+    }
   });
+
+  async function handleLoadMore() {
+    if (!hasNextPage) return;
+    return await fetchNextPage();
+  }
 
   return (
     <SearchContext.Provider
@@ -52,7 +65,8 @@ export function SearchProvider({ children }: IProvider) {
         booksToRead,
         booksToReadIds,
         setBookToRead: handleSetBooksToRead,
-        removeBookToRead: handleRemoveBookToRead
+        removeBookToRead: handleRemoveBookToRead,
+        loadMore: handleLoadMore
       }}>
       {children}
     </SearchContext.Provider>
