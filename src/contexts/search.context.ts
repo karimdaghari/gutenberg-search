@@ -2,6 +2,9 @@ import { createContext, useContext } from 'react';
 import { IApiResponse } from '~/interfaces/api';
 
 interface IContext {
+  isLoading: boolean;
+  isLoadingOnSearch: boolean;
+  query: string;
   setQuery: (query: string) => void;
   books: IApiResponse['results'];
   setBookToRead: (id: number) => void;
