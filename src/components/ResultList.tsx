@@ -94,9 +94,9 @@ export function ResultList() {
         <>
           <Box pb='sm'>
             <Title order={4}>Results</Title>
-            {isLoading ? (
+            {isLoading ? null : (
               <Text>There are {booksCount} books in total</Text>
-            ) : null}
+            )}
           </Box>
           <ScrollArea ref={containerRef} h={680}>
             {books.length ? Success : null}
