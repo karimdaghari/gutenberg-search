@@ -1,9 +1,9 @@
 import { useSearchContext } from '~/contexts/search.context';
 import { Item, ItemProps } from './Item';
 
-interface Props extends ItemProps {
+type Props = ItemProps & {
   isToBeRead?: boolean;
-}
+};
 
 export function ResultItem({ isToBeRead, ...props }: Props) {
   const { setBookToRead } = useSearchContext();
@@ -13,7 +13,7 @@ export function ResultItem({ isToBeRead, ...props }: Props) {
         label: 'Pick',
         disabled: isToBeRead,
         onClick: () => {
-          setBookToRead(props.id);
+          if (props.id) setBookToRead(props.id);
         }
       }}
       {...props}

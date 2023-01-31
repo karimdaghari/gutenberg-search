@@ -10,7 +10,7 @@ export function ToReadItem(props: ItemProps) {
       actionButton={{
         label: 'Remove',
         onClick: () => {
-          removeBookToRead(props.id);
+          if (props.id) removeBookToRead(props.id);
         }
       }}
     />

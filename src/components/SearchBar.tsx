@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { useSearchContext } from '~/contexts/search.context';
 
 export function SearchBar() {
-  const { setQuery } = useSearchContext();
-  const [value, setValue] = useState('');
+  const { setQuery, isLoadingOnSearch: isLoading, query } = useSearchContext();
+  const [value, setValue] = useState(query);
   return (
     <Flex gap='sm'>
       <TextInput
@@ -16,11 +16,12 @@ export function SearchBar() {
         }}
       />
       <Button
+        loading={isLoading}
         onClick={() => {
           setQuery(value);
         }}
         disabled={!value}>
-        Search
+        {isLoading ? 'Searching...' : 'Search'}
       </Button>
     </Flex>
   );

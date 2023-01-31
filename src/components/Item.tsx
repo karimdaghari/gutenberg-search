@@ -1,43 +1,66 @@
-import { Button, Card, Flex, Text, Title } from '@mantine/core';
+import { Button, Card, Flex, Skeleton, Text, Title } from '@mantine/core';
 import Image from 'next/image';
 
-export interface ItemProps {
+interface BaseItemProps {
+  loading?: boolean;
   id: number;
   title: string;
   cover: string;
   authors?: string[];
 }
 
-interface Props extends ItemProps {
+export type ItemProps =
+  | (Partial<BaseItemProps> & { loading: true })
+  | (BaseItemProps & { loading?: false });
+
+type Props = ItemProps & {
   actionButton: {
     label: string;
     disabled?: boolean;
     onClick: () => void;
   };
-}
+};
 
-export function Item({ cover, title, authors, actionButton }: Props) {
+export function Item({ cover, title, authors, actionButton, loading }: Props) {
   return (
     <Card>
       <Flex gap='sm' align='center'>
-        <Image
-          width={80}
-          height={100}
-          src={cover}
-          alt={`Cover for the book: ${title}`}
-          style={{
-            borderRadius: '0.5rem'
-          }}
-        />
+        {loading ? (
+          <Skeleton radius='sm' w={80} h={100} />
+        ) : (
+          <Image
+            width={80}
+            height={100}
+            src={cover}
+            alt={`Cover for the book: ${title}`}
+            style={{
+              borderRadius: '0.5rem'
+            }}
+          />
+        )}
         <div>
-          <Title order={5} lineClamp={2}>
-            {title}
-          </Title>
-          {authors?.length ? <Text>By: {authors.join(', ')}</Text> : null}
+          {loading ? (
+            <Skeleton radius='sm' w={180} h={15} />
+          ) : (
+            <Title order={5} lineClamp={2}>
+              {title}
+            </Title>
+          )}
+          {loading ? (
+            <Skeleton radius='sm' w={100} h={15} mt={6} />
+          ) : authors?.length ? (
+            <Text>By: {authors.join(', ')}</Text>
+          ) : null}
         </div>
-        <Button disabled={actionButton.disabled} onClick={actionButton.onClick}>
-          {actionButton.label}
-        </Button>
+        {loading ? (
+          <Skeleton radius='sm' w={100} h={40} />
+        ) : (
+          <Button
+            disabled={actionButton.disabled}
+            onClick={actionButton.onClick}>
+            {actionButton.label}
+          </Button>
+        )}
       </Flex>
     </Card>
   );
