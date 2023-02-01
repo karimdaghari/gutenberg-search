@@ -27,6 +27,7 @@ export function SearchProvider({ children }: IProvider) {
   }
 
   const {
+    error,
     count: booksCount,
     fetchMore,
     isLoading,
@@ -39,6 +40,7 @@ export function SearchProvider({ children }: IProvider) {
   return (
     <SearchContext.Provider
       value={{
+        error,
         query,
         isLoading,
         isLoadingOnSearch,

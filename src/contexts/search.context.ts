@@ -2,6 +2,7 @@ import { createContext, useContext } from 'react';
 import { IApiResponse } from '~/interfaces/api';
 
 export interface IContext {
+  error?: Error;
   isLoading: boolean;
   isLoadingOnSearch: boolean;
   query: string;

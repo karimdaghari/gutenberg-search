@@ -1,8 +1,17 @@
-import { Box, Flex, Paper, ScrollArea, Text, Title } from '@mantine/core';
+import {
+  Alert,
+  Box,
+  Flex,
+  Paper,
+  ScrollArea,
+  Text,
+  Title
+} from '@mantine/core';
 import { useEffect, useMemo, useRef } from 'react';
 import { useSearchContext } from '~/contexts/search.context';
 import { ResultItem } from './ResultItem';
 import { useIntersection } from '@mantine/hooks';
+import { AlertCircle } from 'lucide-react';
 
 export function ResultList() {
   const containerRef = useRef(null);
@@ -11,8 +20,15 @@ export function ResultList() {
     threshold: 1
   });
 
-  const { books, booksToReadIds, loadMore, isLoading, query, booksCount } =
-    useSearchContext();
+  const {
+    books,
+    booksToReadIds,
+    loadMore,
+    isLoading,
+    query,
+    booksCount,
+    error
+  } = useSearchContext();
 
   const shouldLoadMore = useMemo(
     () => (books.length && entry?.isIntersecting ? true : false),
@@ -67,9 +83,17 @@ export function ResultList() {
     </Flex>
   );
 
+  const ErrorDisplay = (
+    <Alert icon={<AlertCircle />} title='Bummer!' color='red'>
+      {error?.message}
+    </Alert>
+  );
+
   return (
     <Paper h='90vh' shadow='sm' p='sm'>
-      {!query ? (
+      {error ? (
+        ErrorDisplay
+      ) : !query ? (
         NoQuery
       ) : books.length || isLoading ? (
         <>
