@@ -22,20 +22,36 @@ export function useGetBooks({ query, onSuccess }: Props) {
     queryKey: ['search', query],
     enabled: query !== '',
     queryFn: async ({ pageParam = null }) => {
-      try {
-        if (pageParam) {
-          const { data } = await axios.get<IApiResponse>(pageParam);
-          return data;
-        }
-        const { data } = await axios.get<IApiResponse>(
-          'https://gutendex.com/books',
-          {
-            params: {
-              search: query
-            }
-          }
-        );
+      const fetchBooks = async ({
+        url,
+        params = undefined
+      }: {
+        url: string;
+        params?: Record<string, any>;
+      }) => {
+        const { data } = await axios.get<IApiResponse>(url, {
+          params
+        });
         return data;
+      };
+
+      try {
+        const { results, ...rest } = await fetchBooks({
+          url: pageParam ?? 'https://gutendex.com/books/',
+          params: pageParam ? undefined : { search: query }
+        });
+
+        // Filter out results that don't have a cover image
+        const _results = results.filter(
+          ({ formats }) => formats['image/jpeg'] || formats['image/png']
+        );
+
+        const response: IApiResponse = {
+          ...rest,
+          results: _results
+        };
+
+        return response;
       } catch (error: AxiosError | Error | unknown) {
         if (error instanceof AxiosError) {
           if (error.response) {
