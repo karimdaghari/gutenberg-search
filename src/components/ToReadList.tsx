@@ -8,16 +8,16 @@ import {
 } from '@mantine/core';
 import { useSearchContext } from '~/contexts/search.context';
 import { ToReadItem } from './ToReadItem';
-import { Library } from 'lucide-react';
+import { Glasses } from 'lucide-react';
 
 export function ToReadList() {
   const { booksToRead } = useSearchContext();
 
   const ListTitle = ({ order }: { order: TitleOrder }) => (
     <Flex align='center'>
-      <Library />
-      <Title pl={1} order={order}>
-        My Library
+      <Glasses />
+      <Title pl={4} order={order}>
+        To Read
       </Title>
     </Flex>
   );
@@ -25,7 +25,7 @@ export function ToReadList() {
   const EmptyList = (
     <Flex justify='center' align='center' direction='column' h='100%'>
       <ListTitle order={3} />
-      <Text>Pick books you want to read to add them to your library</Text>
+      <Text>Pick books you want to add to this list</Text>
     </Flex>
   );
 
