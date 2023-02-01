@@ -1,11 +1,11 @@
 import { useSearchContext } from '~/contexts/search.context';
-import { Item, ItemProps } from './Item';
+import { BaseItem, ItemProps } from '../BaseItem';
 
 export function ToReadItem(props: ItemProps) {
   const { removeBookToRead } = useSearchContext();
 
   return (
-    <Item
+    <BaseItem
       {...props}
       actionButton={{
         label: 'Remove',

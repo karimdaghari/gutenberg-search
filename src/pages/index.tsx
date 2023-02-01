@@ -6,9 +6,9 @@ import {
   SimpleGrid,
   Stack
 } from '@mantine/core';
-import { ResultList } from '~/components/ResultList';
 import { SearchBar } from '~/components/SearchBar';
-import { ToReadList } from '~/components/ToReadList';
+import { ResultList } from '~/components/list-result';
+import { ToReadList } from '~/components/list-to-read';
 
 export default function Index() {
   return (

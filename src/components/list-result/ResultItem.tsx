@@ -1,5 +1,5 @@
 import { useSearchContext } from '~/contexts/search.context';
-import { Item, ItemProps } from './Item';
+import { BaseItem, ItemProps } from '../BaseItem';
 
 type Props = ItemProps & {
   isToBeRead?: boolean;
@@ -8,7 +8,7 @@ type Props = ItemProps & {
 export function ResultItem({ isToBeRead, ...props }: Props) {
   const { setBookToRead } = useSearchContext();
   return (
-    <Item
+    <BaseItem
       actionButton={{
         label: 'Pick',
         disabled: isToBeRead,

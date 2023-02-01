@@ -21,7 +21,13 @@ type Props = ItemProps & {
   };
 };
 
-export function Item({ cover, title, authors, actionButton, loading }: Props) {
+export function BaseItem({
+  cover,
+  title,
+  authors,
+  actionButton,
+  loading
+}: Props) {
   // Format authors to be in the format: {firstName} {lastName} instead of {lastName}, {firstName}
   // e.g. "John Doe" instead of "Doe, John"
   const formattedAuthors = authors?.map((author) =>
