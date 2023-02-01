@@ -16,8 +16,7 @@ export function useGetBooks({ query, onSuccess }: Props) {
     hasNextPage,
     isFetchingNextPage,
     status,
-    fetchStatus,
-    data
+    fetchStatus
   } = useInfiniteQuery({
     queryKey: ['search', query],
     enabled: query !== '',
@@ -94,8 +93,6 @@ export function useGetBooks({ query, onSuccess }: Props) {
     [fetchStatus, isFetchingNextPage]
   );
 
-  const count = useMemo(() => data?.pages[0].count || 0, [data]);
-
   async function handleLoadMore() {
     if (!hasNextPage || isLoading) return;
     return await fetchNextPage();
@@ -104,7 +101,6 @@ export function useGetBooks({ query, onSuccess }: Props) {
   return {
     isLoading,
     isLoadingOnSearch,
-    count,
     fetchMore: handleLoadMore,
     error: error as Error | undefined
   };

@@ -1,6 +1,5 @@
 import {
   Alert,
-  Box,
   Flex,
   Paper,
   ScrollArea,
@@ -22,15 +21,8 @@ export function ResultList() {
     threshold: 1
   });
 
-  const {
-    books,
-    booksToReadIds,
-    loadMore,
-    isLoading,
-    query,
-    booksCount,
-    error
-  } = useSearchContext();
+  const { books, booksToReadIds, loadMore, isLoading, query, error } =
+    useSearchContext();
 
   useEffect(() => {
     if (entry?.isIntersecting) {
@@ -93,14 +85,9 @@ export function ResultList() {
         NoQuery
       ) : books.length || isLoading ? (
         <>
-          <Box pb='sm'>
-            <Title order={4}>Results for: {query}</Title>
-            {isLoading ? (
-              <Skeleton w={200} h={10} />
-            ) : (
-              <Text>There are {booksCount} books in total</Text>
-            )}
-          </Box>
+          <Title order={4} pb='sm'>
+            Results for: {query}
+          </Title>
           <ScrollArea ref={containerRef} h='90%'>
             {books.length ? Success : null}
             {isLoading ? Loading : <UnstyledButton ref={ref} />}

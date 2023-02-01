@@ -8,10 +8,6 @@ export interface IContext {
   query: string;
   setQuery: (query: string) => void;
   books: IApiResponse['results'];
-  /**
-   * This is the value returned from the API and not a shorthand for books.length
-   */
-  booksCount: IApiResponse['count'];
   setBookToRead: (id: number) => void;
   removeBookToRead: (id: number) => void;
   booksToRead: IContext['books'];
