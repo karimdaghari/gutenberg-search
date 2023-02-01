@@ -19,6 +19,7 @@ export function ResultList() {
     root: containerRef.current,
     threshold: 1
   });
+
   const {
     books,
     booksToReadIds,
@@ -68,28 +69,37 @@ export function ResultList() {
     </>
   );
 
-  const suggestions = ['Mark Twain', 'Jane Austen', 'Charles Dickens'];
+  const NoQuery = (
+    <Flex justify='center' align='center' direction='column' h='100%'>
+      <Title order={3}>Search the Gutenberg Library</Title>
+      <Text>Here are a few suggestions to get you started...</Text>
+      <Group pt='sm'>
+        {['Mark Twain', 'Jane Austen', 'Charles Dickens'].map((s) => (
+          <Badge
+            component='button'
+            onClick={() => setQuery(s)}
+            key={s}
+            style={{
+              cursor: 'pointer'
+            }}>
+            {s}
+          </Badge>
+        ))}
+      </Group>
+    </Flex>
+  );
+
+  const NoResults = (
+    <Flex justify='center' align='center' direction='column' h='100%'>
+      <Title order={3}>No results found</Title>
+      <Text>It seems that there are no books for: {query}</Text>
+    </Flex>
+  );
 
   return (
     <Paper h='90vh' shadow='sm' p='sm'>
       {!query ? (
-        <Flex justify='center' align='center' direction='column' h='100%'>
-          <Title order={3}>Search the Gutenberg Library</Title>
-          <Text>Here are a few queries to get you started...</Text>
-          <Group pt='sm'>
-            {suggestions.map((s) => (
-              <Badge
-                component='button'
-                onClick={() => setQuery(s)}
-                key={s}
-                style={{
-                  cursor: 'pointer'
-                }}>
-                {s}
-              </Badge>
-            ))}
-          </Group>
-        </Flex>
+        NoQuery
       ) : books.length || isLoading ? (
         <>
           <Box pb='sm'>
@@ -104,10 +114,7 @@ export function ResultList() {
           </ScrollArea>
         </>
       ) : (
-        <Flex justify='center' align='center' direction='column' h='100%'>
-          <Title order={3}>No results found</Title>
-          <Text>It seems that there are no books for: {query}</Text>
-        </Flex>
+        NoResults
       )}
     </Paper>
   );
