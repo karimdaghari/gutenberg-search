@@ -1,13 +1,4 @@
-import {
-  Badge,
-  Box,
-  Flex,
-  Group,
-  Paper,
-  ScrollArea,
-  Text,
-  Title
-} from '@mantine/core';
+import { Box, Flex, Paper, ScrollArea, Text, Title } from '@mantine/core';
 import { useEffect, useMemo, useRef } from 'react';
 import { useSearchContext } from '~/contexts/search.context';
 import { ResultItem } from './ResultItem';
@@ -20,15 +11,8 @@ export function ResultList() {
     threshold: 1
   });
 
-  const {
-    books,
-    booksToReadIds,
-    loadMore,
-    isLoading,
-    query,
-    setQuery,
-    booksCount
-  } = useSearchContext();
+  const { books, booksToReadIds, loadMore, isLoading, query, booksCount } =
+    useSearchContext();
 
   const shouldLoadMore = useMemo(
     () => (books.length && entry?.isIntersecting ? true : false),
@@ -72,20 +56,7 @@ export function ResultList() {
   const NoQuery = (
     <Flex justify='center' align='center' direction='column' h='100%'>
       <Title order={3}>Search the Gutenberg Library</Title>
-      <Text>Here are a few suggestions to get you started...</Text>
-      <Group pt='sm'>
-        {['Mark Twain', 'Jane Austen', 'Charles Dickens'].map((s) => (
-          <Badge
-            component='button'
-            onClick={() => setQuery(s)}
-            key={s}
-            style={{
-              cursor: 'pointer'
-            }}>
-            {s}
-          </Badge>
-        ))}
-      </Group>
+      <Text>Find over 60,000 free eBooks</Text>
     </Flex>
   );
 
