@@ -34,7 +34,7 @@ export function ToReadList() {
       <ListTitle order={4} />
       <ScrollArea h='90%'>
         {booksToRead.map(({ id, formats, title }) => {
-          const cover = formats['image/jpeg'];
+          const cover = formats['image/jpeg'] || formats['image/png'];
           return <ToReadItem key={id} id={id} title={title} cover={cover} />;
         })}
       </ScrollArea>

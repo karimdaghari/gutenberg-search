@@ -42,7 +42,7 @@ export function ResultList() {
     <>
       {books.map(({ authors, id, title, formats }) => {
         const _authors = authors.map(({ name }) => name);
-        const cover = formats['image/jpeg'];
+        const cover = formats['image/jpeg'] || formats['image/png'];
         return (
           <ResultItem
             key={id}
