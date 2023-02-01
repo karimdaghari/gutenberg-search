@@ -42,7 +42,7 @@ export function ToReadList() {
   );
 
   return (
-    <Paper shadow='sm' p='md'>
+    <Paper h='85vh' shadow='sm' p='md'>
       {booksToRead.length ? FilledList : EmptyList}
     </Paper>
   );
