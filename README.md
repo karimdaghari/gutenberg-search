@@ -2,6 +2,8 @@ This is a take-home assignment/project for SignHouse.
 
 It's a very minimalist alternative front for Gutenberg built with Next.js using the [Gutendex](https://gutendex.com/) API that only allows for two things: searching for a book (with infinite scroll) and an ability to 'pick' a book to add it to a "To Read" list.
 
+[Quick preview](https://user-images.githubusercontent.com/50710559/216052774-692a6110-8d8b-495f-bc9d-cf226f60e44b.webm)
+
 ## Getting Started
 
 ### Run it locally
