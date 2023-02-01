@@ -39,7 +39,7 @@ export function BaseItem({
       <Flex gap='sm' align='center' justify='space-between'>
         <Flex align='center' gap='sm'>
           {loading ? (
-            <Skeleton radius='sm' w={80} h={100} />
+            <Skeleton radius='sm' w={60} h={100} />
           ) : (
             <Image
               width={60}
