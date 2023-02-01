@@ -1,10 +1,9 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import { useState } from 'react';
 import { SearchContext } from '~/contexts/search.context';
 import { IApiResponse } from '~/interfaces/api';
 import { IProvider } from '~/interfaces/provider';
 import { useMemo } from 'react';
+import { useGetBooks } from '~/hooks/useGetBooks';
 
 export function SearchProvider({ children }: IProvider) {
   const [query, setQuery] = useState('');
@@ -28,55 +27,14 @@ export function SearchProvider({ children }: IProvider) {
   }
 
   const {
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    status,
-    fetchStatus,
-    data
-  } = useInfiniteQuery({
-    queryKey: ['search', query],
-    enabled: query !== '',
-    queryFn: async ({ pageParam = null }) => {
-      if (pageParam) {
-        const { data } = await axios.get<IApiResponse>(pageParam);
-        return data;
-      }
-      const { data } = await axios.get<IApiResponse>(
-        'https://gutendex.com/books',
-        {
-          params: {
-            search: query
-          }
-        }
-      );
-      return data;
-    },
-    getNextPageParam: ({ next }) => next,
-    onSuccess: ({ pages }) => {
-      const results = pages.flatMap(({ results }) => results);
-      setBooks(results);
-    }
+    count: booksCount,
+    fetchMore,
+    isLoading,
+    isLoadingOnSearch
+  } = useGetBooks({
+    query,
+    onSuccess: setBooks
   });
-
-  const isLoading = useMemo(
-    () =>
-      (status === 'loading' && fetchStatus === 'fetching') ||
-      isFetchingNextPage,
-    [status, fetchStatus, isFetchingNextPage]
-  );
-
-  async function handleLoadMore() {
-    if (!hasNextPage || isLoading) return;
-    return await fetchNextPage();
-  }
-
-  const isLoadingOnSearch = useMemo(
-    () => fetchStatus === 'fetching' && !isFetchingNextPage,
-    [fetchStatus, isFetchingNextPage]
-  );
-
-  const booksCount = data?.pages[0].count || 0;
 
   return (
     <SearchContext.Provider
@@ -91,7 +49,7 @@ export function SearchProvider({ children }: IProvider) {
         booksToReadIds,
         setBookToRead: handleSetBooksToRead,
         removeBookToRead: handleRemoveBookToRead,
-        loadMore: handleLoadMore
+        loadMore: fetchMore
       }}>
       {children}
     </SearchContext.Provider>

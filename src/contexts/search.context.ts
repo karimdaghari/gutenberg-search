@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
 import { IApiResponse } from '~/interfaces/api';
 
-interface IContext {
+export interface IContext {
   isLoading: boolean;
   isLoadingOnSearch: boolean;
   query: string;
