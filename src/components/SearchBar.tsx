@@ -1,4 +1,5 @@
 import { Button, Flex, TextInput } from '@mantine/core';
+import { Search } from 'lucide-react';
 import { useState } from 'react';
 import { useSearchContext } from '~/contexts/search.context';
 
@@ -8,6 +9,7 @@ export function SearchBar() {
   return (
     <Flex gap='sm'>
       <TextInput
+        icon={<Search size={20} />}
         placeholder='Search for books...'
         value={value}
         onChange={({ currentTarget: { value } }) => setValue(value)}
