@@ -26,13 +26,7 @@ export function SearchProvider({ children }: IProvider) {
     setBooksToRead(_booksToRead);
   }
 
-  const {
-    error,
-    count: booksCount,
-    fetchMore,
-    isLoading,
-    isLoadingOnSearch
-  } = useGetBooks({
+  const { error, fetchMore, isLoading, isLoadingOnSearch } = useGetBooks({
     query,
     onSuccess: setBooks
   });
@@ -46,7 +40,6 @@ export function SearchProvider({ children }: IProvider) {
         isLoadingOnSearch,
         setQuery,
         books,
-        booksCount,
         booksToRead,
         booksToReadIds,
         setBookToRead: handleSetBooksToRead,
