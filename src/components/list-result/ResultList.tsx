@@ -6,7 +6,8 @@ import {
   ScrollArea,
   Skeleton,
   Text,
-  Title
+  Title,
+  UnstyledButton
 } from '@mantine/core';
 import { useEffect, useMemo, useRef } from 'react';
 import { useSearchContext } from '~/contexts/search.context';
@@ -66,7 +67,6 @@ export function ResultList() {
           />
         );
       })}
-      <span ref={ref} />
     </>
   );
 
@@ -108,7 +108,7 @@ export function ResultList() {
           </Box>
           <ScrollArea ref={containerRef} h='90%'>
             {books.length ? Success : null}
-            {isLoading ? Loading : null}
+            {isLoading ? Loading : <UnstyledButton ref={ref} />}
           </ScrollArea>
         </>
       ) : (
