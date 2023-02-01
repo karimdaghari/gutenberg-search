@@ -4,6 +4,7 @@ import {
   Flex,
   Paper,
   ScrollArea,
+  Skeleton,
   Text,
   Title
 } from '@mantine/core';
@@ -90,7 +91,7 @@ export function ResultList() {
   );
 
   return (
-    <Paper h='90vh' shadow='sm' p='sm'>
+    <Paper h='85vh' shadow='sm' p='sm'>
       {error ? (
         ErrorDisplay
       ) : !query ? (
@@ -98,8 +99,10 @@ export function ResultList() {
       ) : books.length || isLoading ? (
         <>
           <Box pb='sm'>
-            <Title order={4}>Results</Title>
-            {isLoading ? null : (
+            <Title order={4}>Results for: {query}</Title>
+            {isLoading ? (
+              <Skeleton w={200} h={10} />
+            ) : (
               <Text>There are {booksCount} books in total</Text>
             )}
           </Box>
