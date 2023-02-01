@@ -83,7 +83,9 @@ I believe that tests are a form of premature optimization. Don't get wrong, from
 
 ## Things that could be improved
 
-Although I'm fairly satisfied with the work I've done here, there's two things that IMO would make me 100% satisfied:
+Although I'm fairly satisfied with the work I've done here, there's 4 things that IMO would make me 100% satisfied:
 
 1. More granular error handling (for instance the case for an error that occurs while fetching a new page (infinite loading) shouldn't block the whole list)
-2. Write tests (but then again, this is me being a perfectionist)
+2. Improve responsiveness on mobile (i.e., improve the responsive web design -- not performance related)
+3. Add animations to make the app seem more fluid (IME, fonts and animations are usually the things that makes people a product's aesthetics more pleasing. They're usually the things that make them say stuff like "I like this but I can't quite put my finger on why...")
+4. Write tests (but then again, this is me being a perfectionist)
