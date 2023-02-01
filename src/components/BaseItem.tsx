@@ -30,9 +30,9 @@ export function BaseItem({
 }: Props) {
   // Format authors to be in the format: {firstName} {lastName} instead of {lastName}, {firstName}
   // e.g. "John Doe" instead of "Doe, John"
-  const formattedAuthors = authors?.map((author) =>
-    author.split(',').reverse().join(' ').trim()
-  );
+  const formattedAuthors = authors
+    ?.map((author) => author.split(',').reverse().join(' ').trim())
+    .join(', ');
 
   return (
     <Card>
@@ -62,7 +62,7 @@ export function BaseItem({
             {loading ? (
               <Skeleton radius='sm' w={100} h={15} mt={6} />
             ) : authors?.length ? (
-              <Text>By: {formattedAuthors?.join(', ')}</Text>
+              <Text>By: {formattedAuthors}</Text>
             ) : null}
           </div>
         </Flex>
