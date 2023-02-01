@@ -9,7 +9,7 @@ import {
   Title,
   UnstyledButton
 } from '@mantine/core';
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useSearchContext } from '~/contexts/search.context';
 import { ResultItem } from './ResultItem';
 import { useIntersection } from '@mantine/hooks';
@@ -32,16 +32,11 @@ export function ResultList() {
     error
   } = useSearchContext();
 
-  const shouldLoadMore = useMemo(
-    () => (books.length && entry?.isIntersecting ? true : false),
-    [entry, books]
-  );
-
   useEffect(() => {
-    if (shouldLoadMore) {
+    if (entry?.isIntersecting) {
       loadMore();
     }
-  }, [shouldLoadMore, loadMore]);
+  }, [loadMore, entry?.isIntersecting]);
 
   const Loading = (
     <>
