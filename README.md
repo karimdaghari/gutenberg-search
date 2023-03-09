@@ -81,7 +81,7 @@ Since there's no SEO-related need to address, from a UX perspective, CSR is a be
 
 ### Why are there no tests?
 
-For this project, tests would've been a form of premature optimization. Don't get wrong, from a technical perspective they're important but they require certain conditions be met like, *but not limited to*:
+For this project, tests would've been a form of premature optimization. Don't get me wrong, from a technical perspective they're important but they require certain conditions be met like, *but not limited to*:
 
 - Testing things manually would take a lot more time than doing automated testing.
 - The project is stable enough/most of it requirements are well defined/set.
