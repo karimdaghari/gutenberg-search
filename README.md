@@ -1,5 +1,11 @@
 This is a take-home assignment/project for SignHouse.
 
+<details>
+  <summary>Read assignment</summary>
+  
+   ![image](https://user-images.githubusercontent.com/50710559/224084066-057f5d27-497d-42bd-98ce-286f2e51f1f7.png)
+</details>
+
 It's a very minimalist alternative front for Gutenberg built with Next.js using the [Gutendex](https://gutendex.com/) API that only allows for two things: searching for a book (with infinite scroll) and an ability to 'pick' a book to add it to a "To Read" list.
 
 [Quick preview](https://user-images.githubusercontent.com/50710559/216052774-692a6110-8d8b-495f-bc9d-cf226f60e44b.webm)
@@ -67,18 +73,18 @@ Although I'm quite proficient in Tailwind and know it like the back of my hand, 
 
 #### MUI, AntUI and the likes
 
-I don't have anything against the other libraries, it's a matter of personal preference.
+I don't have anything against them, at this point/scale it's a matter of personal preference.
 
 ### Why did you use CSR instead of SSR?
 
-Since there's no SEO-related need to address, from a UX perspective CSR is better as it's *seemingly, perceivably* faster, for instance: it's better to show a skeleton than a blank page even though the load time is more or less the same (although technically there **is** a difference, it's negligible and doesn't justify the cost incurred from a UX perspective).
+Since there's no SEO-related need to address, from a UX perspective, CSR is a better fit as it's *seemingly and perceivably* faster, for instance: it's better to show a skeleton than a blank page even though the load time is more or less the same (although technically there **is** a difference, it's negligible and doesn't justify the cost incurred from a UX perspective).
 
 ### Why are there no tests?
 
-I believe that tests are a form of premature optimization. Don't get wrong, from a technical perspective they're important but they require that certain conditions be met like, *but not limited to*:
+For this project, tests would've been a form of premature optimization. Don't get wrong, from a technical perspective they're important but they require certain conditions be met like, *but not limited to*:
 
 - Testing things manually would take a lot more time than doing automated testing.
-- The project is stable enough that most of it requirements are well set.
+- The project is stable enough/most of it requirements are well defined/set.
 - There's a team of at least 3 working on various components of the project.
 
 ## Things that could be improved
@@ -87,5 +93,5 @@ Although I'm fairly satisfied with the work I've done here, there's 4 things tha
 
 1. More granular error handling (for instance the case for an error that occurs while fetching a new page (infinite loading) shouldn't block the whole list)
 2. Improve responsiveness on mobile (i.e., improve the responsive web design -- not performance related)
-3. Add animations to make the app seem more fluid (IME, fonts and animations are usually the things that makes people a product's aesthetics more pleasing. They're usually the things that make them say stuff like "I like this but I can't quite put my finger on why...")
+3. Add animations to make the app seem more fluid (IME, fonts and animations are usually the things that make a product's aesthetics _seem_ more pleasing. They're usually the things that make people say stuff like "I like this but I can't quite put my finger on why...")
 4. Write tests (but then again, this is me being a perfectionist)
