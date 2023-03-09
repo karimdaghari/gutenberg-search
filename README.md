@@ -1,7 +1,7 @@
 This is a take-home assignment/project for SignHouse.
 
 <details>
-  <summary>Read assignment</summary>
+  <summary>Read spec</summary>
   
    ![image](https://user-images.githubusercontent.com/50710559/224084066-057f5d27-497d-42bd-98ce-286f2e51f1f7.png)
 </details>
